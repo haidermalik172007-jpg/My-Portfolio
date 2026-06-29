@@ -40,7 +40,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       border="neutral-medium"
       background="surface"
       s={{ direction: "column" }}
-      alignItems="center"
+      vertical="center"
     >
       <Column flex={1} fillWidth>
         <Carousel
