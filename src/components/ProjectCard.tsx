@@ -1,7 +1,7 @@
 "use client";
 
+import React from "react";
 import {
-  AvatarGroup,
   Carousel,
   Column,
   Flex,
@@ -11,80 +11,101 @@ import {
 } from "@once-ui-system/core";
 
 interface ProjectCardProps {
-  href: string;
-  priority?: boolean;
-  images: string[];
   title: string;
-  content: string;
   description: string;
-  avatars: { src: string }[];
-  link: string;
+  images: string[];
+  href: string;
+  githubLink?: string;
+  liveLink?: string;
+  priority?: boolean;
+  content?: string;
+  avatars?: { src: string }[];
+  link?: string;
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
-  href,
-  images = [],
   title,
-  content,
   description,
-  avatars,
-  link,
+  images,
+  href,
+  githubLink,
+  liveLink,
 }) => {
   return (
-    <Column fillWidth gap="m">
-      <Carousel
-        sizes="(max-width: 960px) 100vw, 960px"
-        items={images.map((image) => ({
-          slide: image,
-          alt: title,
-        }))}
-      />
-      <Flex
-        s={{ direction: "column" }}
-        fillWidth
-        paddingX="s"
-        paddingTop="12"
-        paddingBottom="24"
-        gap="l"
-      >
-        {title && (
-          <Flex flex={5}>
-            <Heading as="h2" wrap="balance" variant="heading-strong-xl">
-              {title}
-            </Heading>
-          </Flex>
-        )}
-        {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
-          <Column flex={7} gap="16">
-            {avatars?.length > 0 && <AvatarGroup avatars={avatars} size="m" reverse />}
-            {description?.trim() && (
-              <Text wrap="balance" variant="body-default-s" onBackground="neutral-weak">
-                {description}
-              </Text>
-            )}
-            <Flex gap="24" wrap>
-              {content?.trim() && (
-                <SmartLink
-                  suffixIcon="arrowRight"
-                  style={{ margin: "0", width: "fit-content" }}
-                  href={href}
-                >
-                  <Text variant="body-default-s">Read case study</Text>
-                </SmartLink>
-              )}
-              {link && (
-                <SmartLink
-                  suffixIcon="arrowUpRightFromSquare"
-                  style={{ margin: "0", width: "fit-content" }}
-                  href={link}
-                >
-                  <Text variant="body-default-s">View project</Text>
-                </SmartLink>
-              )}
-            </Flex>
-          </Column>
-        )}
-      </Flex>
-    </Column>
+    <Flex
+      fillWidth
+      gap="xl"
+      padding="24"
+      radius="xl"
+      border="neutral-medium"
+      background="surface"
+      s={{ direction: "column" }}
+      alignItems="center"
+    >
+      <Column flex={1} fillWidth>
+        <Carousel
+          sizes="(max-width: 960px) 100vw, 600px"
+          items={images.map((image) => ({
+            slide: image,
+            alt: title,
+          }))}
+        />
+      </Column>
+
+      <Column flex={1} gap="20" fillWidth>
+        <Heading as="h2" variant="heading-strong-xl" align="center">
+          {title}
+        </Heading>
+
+        <Text variant="body-default-m" onBackground="neutral-weak" align="center">
+          {description}
+        </Text>
+
+        <Column gap="12">
+          <SmartLink
+            href={href}
+            style={{
+              width: "100%",
+              justifyContent: "center",
+              padding: "14px",
+              border: "1px solid #5f4bff",
+              borderRadius: "12px",
+            }}
+          >
+            <Text>How it was made</Text>
+          </SmartLink>
+
+          {githubLink && (
+            <SmartLink
+              href={githubLink}
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                padding: "14px",
+                border: "1px solid #5f4bff",
+                borderRadius: "12px",
+              }}
+            >
+              <Text>View Code</Text>
+            </SmartLink>
+          )}
+
+          {liveLink && (
+            <SmartLink
+              href={liveLink}
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                padding: "14px",
+                border: "1px solid #5f4bff",
+                borderRadius: "12px",
+              }}
+            >
+              <Text>Live Demo</Text>
+            </SmartLink>
+          )}
+        </Column>
+      </Column>
+    </Flex>
   );
 };

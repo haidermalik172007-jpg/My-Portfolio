@@ -10,7 +10,6 @@ interface ProjectsProps {
 export function Projects({ range, exclude }: ProjectsProps) {
   let allProjects = getPosts(["src", "app", "work", "projects"]);
 
-  // Exclude by slug (exact match)
   if (exclude && exclude.length > 0) {
     allProjects = allProjects.filter((post) => !exclude.includes(post.slug));
   }
@@ -36,6 +35,8 @@ export function Projects({ range, exclude }: ProjectsProps) {
           content={post.content}
           avatars={post.metadata.team?.map((member) => ({ src: member.avatar })) || []}
           link={post.metadata.link || ""}
+          githubLink={post.metadata.githubLink || ""}  // ← add kiya
+          liveLink={post.metadata.liveLink || ""}       // ← add kiya
         />
       ))}
     </Column>
